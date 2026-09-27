@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://d4b6fxu73nnsf"]
+
+[ext_resource type="Script" uid="uid://dqxk0ci3npsab" path="res://Game Root/game_master.gd" id="1_ejnvv"]
+[ext_resource type="Script" uid="uid://b767r3bbt840h" path="res://Game Root/game_base_state.gd" id="2_7wpkn"]
+[ext_resource type="Script" uid="uid://di8c2p52mbqfl" path="res://Game Root/game_menu_state.gd" id="3_tafij"]
+[ext_resource type="Script" uid="uid://dpe0k8tcpkobn" path="res://Game Root/in_game_level_state.gd" id="4_k6k6p"]
+[ext_resource type="Script" uid="uid://i7rj1tsafejk" path="res://Networking/network_creator.gd" id="5_dfjcs"]
+[ext_resource type="Script" uid="uid://mcnnfd21mdm2" path="res://Universal Logic/map_loader.gd" id="6_7wpkn"]
+[ext_resource type="Script" uid="uid://mcs72dta03mm" path="res://Universal Logic/gui_loader.gd" id="7_tafij"]
+
+[node name="GameRootStateMachine" type="Node" unique_id=1116868969 node_paths=PackedStringArray("gui_master", "world_master", "network_creator", "states", "current_state")]
+script = ExtResource("1_ejnvv")
+gui_master = NodePath("GuiController")
+world_master = NodePath("WorldController")
+network_creator = NodePath("NetworkCreator")
+states = [NodePath("StateFolder/GameBaseState"), NodePath("StateFolder/GameMenuState"), NodePath("StateFolder/InGameLevelState")]
+current_state = NodePath("StateFolder/GameBaseState")
+
+[node name="StateFolder" type="Node" parent="." unique_id=290258360]
+
+[node name="GameBaseState" type="Node" parent="StateFolder" unique_id=465947996]
+script = ExtResource("2_7wpkn")
+
+[node name="GameMenuState" type="Node" parent="StateFolder" unique_id=1399909467]
+script = ExtResource("3_tafij")
+
+[node name="InGameLevelState" type="Node" parent="StateFolder" unique_id=1006714234]
+script = ExtResource("4_k6k6p")
+
+[node name="NetworkCreator" type="Node" parent="." unique_id=1656257397]
+script = ExtResource("5_dfjcs")
+metadata/_custom_type_script = "uid://i7rj1tsafejk"
+
+[node name="WorldController" type="Node3D" parent="." unique_id=1681086361]
+script = ExtResource("6_7wpkn")
+
+[node name="GuiController" type="Control" parent="." unique_id=304115254]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("7_tafij")

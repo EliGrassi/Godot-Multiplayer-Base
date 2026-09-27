@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://c1m4yeolifox4"]
+
+[ext_resource type="Script" uid="uid://c123k8y1yisfd" path="res://Gui/gui_base.gd" id="1_888fa"]
+[ext_resource type="Script" uid="uid://27mwp2adjfyq" path="res://Gui/player_list.gd" id="2_yo1jf"]
+
+[node name="LobbyGui" type="Control" unique_id=1329012]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_888fa")
+metadata/_custom_type_script = "uid://c123k8y1yisfd"
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=905303264]
+layout_mode = 0
+offset_right = 506.0
+offset_bottom = 644.0
+color = Color(0.3994281, 0.39942774, 0.39942777, 1)
+
+[node name="PlayerList" type="VBoxContainer" parent="." unique_id=701988299]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 39.0
+offset_right = 463.0
+offset_bottom = 602.0
+script = ExtResource("2_yo1jf")

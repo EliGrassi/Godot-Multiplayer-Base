@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://tiexrqrqhf8h"]
+
+[ext_resource type="Script" uid="uid://dhbst07vtwqmo" path="res://Gui/main_menu_GUI.gd" id="1_yb3t7"]
+
+[node name="MainMenuGui" type="Control" unique_id=2138700177]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_yb3t7")
+
+[node name="Label" type="Label" parent="." unique_id=647365165]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 39.0
+offset_right = 453.0
+offset_bottom = 143.0
+theme_override_font_sizes/font_size = 47
+text = "Demo Game"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=329902806]
+layout_mode = 0
+offset_left = 65.0
+offset_top = 153.0
+offset_right = 453.0
+offset_bottom = 500.0
+theme_override_constants/separation = 23
+
+[node name="Create Lobby Button" type="Button" parent="VBoxContainer2" unique_id=638592223]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Create A Lobby"
+
+[node name="Join Lobby Button" type="Button" parent="VBoxContainer2" unique_id=619845571]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Join A Lobby"
+
+[node name="Exit Game Button" type="Button" parent="VBoxContainer2" unique_id=1562853716]
+layout_mode = 2
+size_flags_vertical = 3
+text = "Exit To Desktop"
+
+[connection signal="pressed" from="VBoxContainer2/Create Lobby Button" to="." method="_on_create_lobby_button_pressed"]
+[connection signal="pressed" from="VBoxContainer2/Join Lobby Button" to="." method="_on_join_lobby_button_pressed"]
+[connection signal="toggled" from="VBoxContainer2/Join Lobby Button" to="." method="_on_join_lobby_button_toggled"]
+[connection signal="pressed" from="VBoxContainer2/Exit Game Button" to="." method="_on_exit_game_button_pressed"]
