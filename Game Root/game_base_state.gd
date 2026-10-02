@@ -7,6 +7,12 @@ func read_signals(message: StringName, payload: Variant) -> void:
 	match message:
 		"CREATE_LOBBY":
 			game_machine.network_creator.open_server()
+			#Let our player spawner know it can start spawning people
+			#because we are now the host
+			#We cant just have an is_server() check on it because every node
+			#thinks its the server before a multiplayer connection is started,
+			#and this node exists by default in the scene tree.
+			game_machine.world_master.player_spawner.start_host()
 		"JOIN_LOBBY":
 			game_machine.network_creator.join_server()
 		"EXIT_GAME":
@@ -18,6 +24,9 @@ func enter() -> void:
 	if !game_machine.gui_master.gui_message.is_connected(read_signals):
 		game_machine.gui_master.gui_message.connect(read_signals)
 	game_machine.gui_master.load_gui_from_id(1)
+	#Tells our spawner we arent the host anymore if we enter the main menu
+	#(No one has hosted a lobby yet from this state)
+	game_machine.world_master.player_spawner.stop_host()
 	return
 
 func exit() -> void:

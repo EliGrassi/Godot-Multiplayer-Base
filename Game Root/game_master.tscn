@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://dpe0k8tcpkobn" path="res://Game Root/in_game_level_state.gd" id="4_k6k6p"]
 [ext_resource type="Script" uid="uid://i7rj1tsafejk" path="res://Networking/network_creator.gd" id="5_dfjcs"]
 [ext_resource type="Script" uid="uid://mcnnfd21mdm2" path="res://Universal Logic/map_loader.gd" id="6_7wpkn"]
+[ext_resource type="Script" uid="uid://1qxiq4t2aynn" path="res://Game Root/player_spawner.gd" id="7_dfjcs"]
+[ext_resource type="Script" uid="uid://dwfwks2q6p1in" path="res://Game Root/player_controller.gd" id="7_k6k6p"]
 [ext_resource type="Script" uid="uid://mcs72dta03mm" path="res://Universal Logic/gui_loader.gd" id="7_tafij"]
 
 [node name="GameRootStateMachine" type="Node" unique_id=1116868969 node_paths=PackedStringArray("gui_master", "world_master", "network_creator", "states", "current_state")]
@@ -31,8 +33,22 @@ script = ExtResource("4_k6k6p")
 script = ExtResource("5_dfjcs")
 metadata/_custom_type_script = "uid://i7rj1tsafejk"
 
-[node name="WorldController" type="Node3D" parent="." unique_id=1681086361]
+[node name="WorldController" type="Node3D" parent="." unique_id=1681086361 node_paths=PackedStringArray("player_spawner", "entity_spawner")]
 script = ExtResource("6_7wpkn")
+player_spawner = NodePath("PlayerSpawner")
+entity_spawner = NodePath("EntitySpawner")
+
+[node name="PlayerSpawner" type="MultiplayerSpawner" parent="WorldController" unique_id=925921237]
+spawn_path = NodePath("../PlayerController")
+script = ExtResource("7_dfjcs")
+
+[node name="PlayerController" type="Node3D" parent="WorldController" unique_id=874513694]
+script = ExtResource("7_k6k6p")
+
+[node name="EntitySpawner" type="MultiplayerSpawner" parent="WorldController" unique_id=191315957]
+spawn_path = NodePath("../EntityController")
+
+[node name="EntityController" type="Node3D" parent="WorldController" unique_id=233231157]
 
 [node name="GuiController" type="Control" parent="." unique_id=304115254]
 layout_mode = 3

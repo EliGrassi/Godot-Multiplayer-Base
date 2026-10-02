@@ -3,11 +3,17 @@ class_name MapLoader extends Node
 
 signal map_message(message: StringName, payload: Variant)
 
+@export var player_spawner: PlayerSpawner = null
+@export var entity_spawner: MultiplayerSpawner = null
+
+
 var loaded_map: MapBase = null
 
 var map_dict: Dictionary[int, Resource] = {
 	1: preload("res://Maps/first_level.tscn")
 }
+
+
 
 #Deletes any existing GUI and replaces it with a new loaded one
 func load_map_from_id(id: int) -> void:
