@@ -5,6 +5,10 @@
 [sub_resource type="BoxMesh" id="BoxMesh_aqhxk"]
 size = Vector3(11.3498535, 1, 9.936523)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_aqhxk"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.65217364, 1, 0.58682334, 1)
+
 [sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_yypxi"]
 data = PackedVector3Array(-5.6749, 0.5, 4.9683, 5.6749, 0.5, 4.9683, -5.6749, -0.5, 4.9683, 5.6749, 0.5, 4.9683, 5.6749, -0.5, 4.9683, -5.6749, -0.5, 4.9683, 5.6749, 0.5, -4.9683, -5.6749, 0.5, -4.9683, 5.6749, -0.5, -4.9683, -5.6749, 0.5, -4.9683, -5.6749, -0.5, -4.9683, 5.6749, -0.5, -4.9683, 5.6749, 0.5, 4.9683, 5.6749, 0.5, -4.9683, 5.6749, -0.5, 4.9683, 5.6749, 0.5, -4.9683, 5.6749, -0.5, -4.9683, 5.6749, -0.5, 4.9683, -5.6749, 0.5, -4.9683, -5.6749, 0.5, 4.9683, -5.6749, -0.5, -4.9683, -5.6749, 0.5, 4.9683, -5.6749, -0.5, 4.9683, -5.6749, -0.5, -4.9683, 5.6749, 0.5, 4.9683, -5.6749, 0.5, 4.9683, 5.6749, 0.5, -4.9683, -5.6749, 0.5, 4.9683, -5.6749, 0.5, -4.9683, 5.6749, 0.5, -4.9683, -5.6749, -0.5, 4.9683, 5.6749, -0.5, 4.9683, -5.6749, -0.5, -4.9683, 5.6749, -0.5, 4.9683, 5.6749, -0.5, -4.9683, -5.6749, -0.5, -4.9683)
 
@@ -16,6 +20,7 @@ metadata/_custom_type_script = "uid://l8jdh5n2o3ib"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=71784224]
 mesh = SubResource("BoxMesh_aqhxk")
+surface_material_override/0 = SubResource("StandardMaterial3D_aqhxk")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=1506777413]
 shape = SubResource("ConcavePolygonShape3D_yypxi")

@@ -1,13 +1,26 @@
 [gd_scene format=3 uid="uid://d2gyf5c6kl5qu"]
 
 [ext_resource type="Script" uid="uid://drcy5cjjnjicf" path="res://Game Root/camera_3d.gd" id="1_4dt7h"]
+[ext_resource type="Script" uid="uid://cchkobrhkftkl" path="res://Game Root/player_root.gd" id="1_xkr2g"]
 [ext_resource type="Script" uid="uid://dif382wbemmex" path="res://Game Root/player_input_events.gd" id="2_e0xn0"]
+[ext_resource type="Script" uid="uid://c1b7b6jx885f4" path="res://Game Root/player_state_machine.gd" id="3_hca55"]
+[ext_resource type="Script" uid="uid://cb05u3katwd1v" path="res://Game Root/movement_normal_state.gd" id="5_qujnc"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_aqhxk"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_aqhxk"]
 
-[node name="PlayerRoot" type="Node3D" unique_id=453494061]
+[sub_resource type="SceneReplicationConfig" id="SceneReplicationConfig_qujnc"]
+properties/0/path = NodePath(".:position")
+properties/0/spawn = true
+properties/0/replication_mode = 1
+
+[node name="PlayerRoot" type="Node3D" unique_id=453494061 node_paths=PackedStringArray("player_state_machine", "player_character", "player_camera", "player_inputs")]
+script = ExtResource("1_xkr2g")
+player_state_machine = NodePath("PlayerStateMachine")
+player_character = NodePath("CharacterBody3D")
+player_camera = NodePath("CharacterBody3D/Camera3D")
+player_inputs = NodePath("PlayerInputEvents")
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=604077833]
 
@@ -17,9 +30,22 @@ mesh = SubResource("CylinderMesh_aqhxk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1993782052]
 shape = SubResource("CylinderShape3D_aqhxk")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1452129014]
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1452129014]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2692704, 0)
 script = ExtResource("1_4dt7h")
 
+[node name="MultiplayerSynchronizer" type="MultiplayerSynchronizer" parent="CharacterBody3D" unique_id=966083697]
+replication_config = SubResource("SceneReplicationConfig_qujnc")
+
 [node name="PlayerInputEvents" type="Node" parent="." unique_id=1742632142]
 script = ExtResource("2_e0xn0")
+
+[node name="PlayerStateMachine" type="Node" parent="." unique_id=1183614203 node_paths=PackedStringArray("states", "current_state")]
+script = ExtResource("3_hca55")
+states = [NodePath("StateFolder/MovementNormalState")]
+current_state = NodePath("StateFolder/MovementNormalState")
+
+[node name="StateFolder" type="Node" parent="PlayerStateMachine" unique_id=1185773232]
+
+[node name="MovementNormalState" type="Node" parent="PlayerStateMachine/StateFolder" unique_id=1122395177]
+script = ExtResource("5_qujnc")

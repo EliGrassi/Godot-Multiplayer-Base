@@ -32,6 +32,10 @@ func _physics_process(delta: float) -> void:
 	if current_state.has_method("physics"):
 		current_state.physics(delta)
 
+func _process(delta: float) -> void:
+	if current_state.has_method("process"):
+		current_state.process(delta)
+
 func switch_state(state_name: StringName) -> void:
 	current_state.exit()
 	current_state = state_names[state_name]
