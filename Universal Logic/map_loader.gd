@@ -1,6 +1,9 @@
 class_name MapLoader extends Node
 
 
+#Class for loading and deloading maps. keeps track of what map is currently loaded
+#and switches it out to new ones when asked
+
 signal map_message(message: StringName, payload: Variant)
 
 @export var player_spawner: PlayerSpawner = null
@@ -9,6 +12,9 @@ signal map_message(message: StringName, payload: Variant)
 
 var loaded_map: MapBase = null
 
+
+#Dictonary of our maps. We load a map by calling load_map_from_id with its ID
+#in the dictionary
 var map_dict: Dictionary[int, Resource] = {
 	1: preload("res://Maps/first_level.tscn")
 }
@@ -27,7 +33,8 @@ func load_map_from_id(id: int) -> void:
 		)
 	#Parent the GUI to the scene tree GUI manager
 	add_child(loaded_map)
-	
+
+#This just unloads the current map if it exists
 func unload_map() -> void:
 	if loaded_map != null:
 		loaded_map.queue_free()

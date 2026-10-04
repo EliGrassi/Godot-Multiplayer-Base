@@ -22,20 +22,28 @@ func _ready() -> void:
 		print("State machine has no initial state!")
 		return 
 		
+	#Add our states to the dictonairy so we can switch between them
 	for state: State in states:
 		state.parent_machine = self
 		state_names[state.name] = state
 		state.state_switched.connect(switch_state)
+	#Call the enter function on whatever our default state is
 	current_state.enter()
 
+#This runs our physics process on the current active state by checking if it
+#has a "physics" method and calling it each tick
 func _physics_process(delta: float) -> void:
 	if current_state.has_method("physics"):
 		current_state.physics(delta)
-
+		
+#This runs our process on the current active state by checking if it
+#has a "process" method and calling it each tick
 func _process(delta: float) -> void:
 	if current_state.has_method("process"):
 		current_state.process(delta)
 
+#This is how we switch between states. First, call the current states exit function
+#Then update our current state, then call the enter function on our new state
 func switch_state(state_name: StringName) -> void:
 	current_state.exit()
 	current_state = state_names[state_name]

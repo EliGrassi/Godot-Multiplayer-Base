@@ -6,11 +6,13 @@ class_name PlayerInputEvents extends Node
 
 
 func _physics_process(delta: float) -> void:
+	if !is_multiplayer_authority(): return
 	#Poll for what movement keys are held down
-	if is_multiplayer_authority():
-		movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
+	movement_vector = Input.get_vector("move_left", "move_right", "move_forward", "move_back")
 
 func _unhandled_input(event: InputEvent) -> void:
+	if !is_multiplayer_authority(): return
+	
 	#Store mouse movement to rotate character
 	if event is InputEventMouseMotion:
 		var mouse_event: InputEventMouseMotion = event
