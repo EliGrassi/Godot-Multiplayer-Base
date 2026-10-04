@@ -9,7 +9,9 @@ signal player_root_signal()
 @export var player_inputs: PlayerInputEvents = null
 
 # Called when the node enters the scene tree for the first time.
+
 # Tell our state machine about this object so it can reference it and its children
+
 # This technically breaks our design pattern because it means a child node understands
 # its parent and siblings, but this is really just a work around to the fact
 # that we cant extend several classes and make a 3D node also a state machine itself
