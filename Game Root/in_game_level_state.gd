@@ -2,14 +2,18 @@ extends GameState
 
 
 func enter() -> void:
+		
+	#Connect function to check for the server closing
 	multiplayer.server_disconnected.connect(server_down)
+	
 	game_machine.gui_master.unload_gui()
 	#Lock mouse on screen in fps view
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 	
-	
+
+#Return to the main menu when the server closes
 func server_down() -> void:
-	game_machine.switch_state("GameBaseState")
+	state_switched.emit("GameBaseState")
 	
 	
 func exit() -> void:

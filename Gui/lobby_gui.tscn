@@ -3,8 +3,11 @@
 [ext_resource type="Script" uid="uid://be4l2p87q1k0r" path="res://Gui/lobby_gui.gd" id="1_enjo0"]
 [ext_resource type="Script" uid="uid://27mwp2adjfyq" path="res://Gui/player_list.gd" id="2_yo1jf"]
 [ext_resource type="Script" uid="uid://j5f8d6hm54kv" path="res://Gui/button_2.gd" id="3_enjo0"]
+[ext_resource type="Script" uid="uid://daqupcrpdf4ws" path="res://Gui/lobby_state_machine.gd" id="4_oinbh"]
+[ext_resource type="Script" uid="uid://dtb2lbwec42g0" path="res://Gui/menu_open_state.gd" id="5_pv67d"]
+[ext_resource type="Script" uid="uid://qvxegwk73lim" path="res://Gui/menu_closed_state.gd" id="6_2o48g"]
 
-[node name="LobbyGui" type="Control" unique_id=1329012]
+[node name="LobbyGui" type="Control" unique_id=1329012 node_paths=PackedStringArray("menu_open_elements", "lobby_gui_state_machine")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -12,39 +15,72 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_enjo0")
+menu_open_elements = NodePath("MenuOpen")
+lobby_gui_state_machine = NodePath("LobbyGuiStateMachine")
 metadata/_custom_type_script = "uid://c123k8y1yisfd"
+
+[node name="MenuOpen" type="Control" parent="." unique_id=407288658]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MenuOpen" unique_id=2102551576]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.08235294, 0.08235294, 0.08235294, 0.39607844)
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=905303264]
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
-offset_right = 512.0
+offset_right = 289.0
+offset_bottom = -119.0
 grow_vertical = 2
 color = Color(0.3994281, 0.39942774, 0.39942777, 1)
 
 [node name="PlayerList" type="VBoxContainer" parent="." unique_id=701988299]
 layout_mode = 0
-offset_left = 32.0
-offset_top = 39.0
-offset_right = 463.0
-offset_bottom = 602.0
+offset_left = 22.0
+offset_top = 23.0
+offset_right = 265.0
+offset_bottom = 300.0
 script = ExtResource("2_yo1jf")
 
 [node name="Button" type="Button" parent="." unique_id=763227137]
 layout_mode = 0
-offset_left = 642.0
-offset_top = 426.0
-offset_right = 1033.0
-offset_bottom = 517.0
+offset_left = 12.0
+offset_top = 424.0
+offset_right = 279.0
+offset_bottom = 515.0
 text = "Settings"
 
 [node name="Button2" type="Button" parent="." unique_id=1342983756]
 layout_mode = 0
-offset_left = 641.0
-offset_top = 535.0
-offset_right = 1032.0
-offset_bottom = 626.0
+offset_left = 11.0
+offset_top = 324.0
+offset_right = 279.0
+offset_bottom = 415.0
 text = "Start Game"
 script = ExtResource("3_enjo0")
+
+[node name="LobbyGuiStateMachine" type="Node" parent="." unique_id=275240106 node_paths=PackedStringArray("states", "current_state")]
+script = ExtResource("4_oinbh")
+states = [NodePath("StateFolder/MenuOpen"), NodePath("StateFolder/MenuClosed")]
+current_state = NodePath("StateFolder/MenuClosed")
+
+[node name="StateFolder" type="Node" parent="LobbyGuiStateMachine" unique_id=531249839]
+
+[node name="MenuOpen" type="Node" parent="LobbyGuiStateMachine/StateFolder" unique_id=1841544845]
+script = ExtResource("5_pv67d")
+
+[node name="MenuClosed" type="Node" parent="LobbyGuiStateMachine/StateFolder" unique_id=437059070]
+script = ExtResource("6_2o48g")
 
 [connection signal="pressed" from="Button2" to="." method="_on_button_2_pressed"]

@@ -11,7 +11,7 @@ signal map_message(message: StringName, payload: Variant)
 
 
 var loaded_map: MapBase = null
-
+var loaded_map_id: int = -1
 
 #Dictonary of our maps. We load a map by calling load_map_from_id with its ID
 #in the dictionary
@@ -33,8 +33,10 @@ func load_map_from_id(id: int) -> void:
 		)
 	#Parent the GUI to the scene tree GUI manager
 	add_child(loaded_map)
+	loaded_map_id = id
 
 #This just unloads the current map if it exists
 func unload_map() -> void:
 	if loaded_map != null:
 		loaded_map.queue_free()
+		loaded_map_id = -1

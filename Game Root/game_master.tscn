@@ -15,7 +15,7 @@ script = ExtResource("1_ejnvv")
 gui_master = NodePath("GuiController")
 world_master = NodePath("WorldController")
 network_creator = NodePath("NetworkCreator")
-states = [NodePath("StateFolder/GameBaseState"), NodePath("StateFolder/GameMenuState"), NodePath("StateFolder/InGameLevelState")]
+states = [NodePath("StateFolder/GameBaseState"), NodePath("StateFolder/GameLobbyState"), NodePath("StateFolder/InGameLevelState")]
 current_state = NodePath("StateFolder/GameBaseState")
 
 [node name="StateFolder" type="Node" parent="." unique_id=290258360]
@@ -23,7 +23,7 @@ current_state = NodePath("StateFolder/GameBaseState")
 [node name="GameBaseState" type="Node" parent="StateFolder" unique_id=465947996]
 script = ExtResource("2_7wpkn")
 
-[node name="GameMenuState" type="Node" parent="StateFolder" unique_id=1399909467]
+[node name="GameLobbyState" type="Node" parent="StateFolder" unique_id=1399909467]
 script = ExtResource("3_tafij")
 
 [node name="InGameLevelState" type="Node" parent="StateFolder" unique_id=1006714234]

@@ -3,6 +3,7 @@ class_name NetworkCreator extends Node
 #Enum for the different networking types we can use
 enum NetworkingStates {STEAM, ENET}
 
+signal confirm_client_connected
 
 #Determine if were using Steam multiplayer or Godots EnetPacketPeer
 @export var networking_mode: NetworkingStates = NetworkingStates.ENET
@@ -34,6 +35,7 @@ func _ready() -> void:
 		enet_peer = ENetMultiplayerPeer.new()
 	multiplayer.peer_connected.connect(player_joined)
 	multiplayer.peer_disconnected.connect(player_left)
+	multiplayer.connection_failed.connect(client_failed_connection)
 
 
 #Handles opening a server
@@ -55,10 +57,21 @@ func join_server() -> void:
 	elif networking_mode == NetworkingStates.ENET:
 		enet_peer.create_client("127.0.0.1", enet_port)
 		multiplayer.multiplayer_peer = enet_peer
+
+#Remote function that lets a server confirm to a client that it has joined
+@rpc("authority","call_remote","reliable")
+func confirm_client_join(id: int) -> void:
+	confirm_client_connected.emit(id)
+
+func client_failed_connection() -> void:
+	print("client failed to connect")
 	
 	
-#Functions called when players join/leave	
+#Functions called when players join/leave
+#Trigger a remote function to confirm to the connecting client it has joined	
 func player_joined(id: int) -> void:
-	print("Player has joined with id: "+str(id))
+	if multiplayer.is_server():
+		print("Player has joined with id: "+str(id))
+		confirm_client_join.rpc(id)
 func player_left(id: int) -> void:
 	print("Player id "+str(id)+" has disconnected")
